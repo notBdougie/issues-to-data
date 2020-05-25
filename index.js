@@ -37,6 +37,7 @@ const body = state =>
   });
 
 function getIssues(body) {
+  console.log("BODY", body)
   const url = "https://api.github.com/graphql";
   const options = {
     method: "POST",
@@ -51,6 +52,8 @@ function getIssues(body) {
   return fetch(url, options)
     .then(resp => resp.json())
     .then(data => {
+      console.log("DATA", data)
+
       return data.data.repository.issues.totalCount;
     }).catch((err) => {console.log(err)});
 }
