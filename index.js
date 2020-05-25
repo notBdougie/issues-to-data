@@ -59,10 +59,6 @@ function getOpenIssues() {
   return getIssues(body("OPEN"));
 }
 
-function getClosedIssues() {
-  return getIssues(body("CLOSED"));
-}
-
 function storeData(record) {
   issueData.push(record);
 }
@@ -74,14 +70,8 @@ function dumpData() {
   });
 }
 
-function printBadgeLink() {
-  const actioncloudBadge = '[![](https://img.shields.io/badge/ActionCloud%20App-Issue%20Tracker-blue)](https://free.actioncloud.io/apps/github-issue-tracker?owner=' + repoOwner + '&repo=' + repoName + ')';
-  console.log(`::set-output name=actioncloud-badge::${actioncloudBadge}`)
-}
-
 async function run() {
   var openIssues = await getOpenIssues();
-  var closedIssues = await getClosedIssues();
   const now = moment().unix();
 
   storeData({
@@ -91,7 +81,6 @@ async function run() {
   });
 
   dumpData();
-  printBadgeLink();
 }
 
 run();
