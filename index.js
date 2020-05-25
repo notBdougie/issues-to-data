@@ -85,7 +85,7 @@ async function getRepoData(issues) {
     const repoOwner = data.data.repository.owner.login;
     const repoName = data.data.repository.name;
     const repoStats = await geIssues(body("OPEN"));
-    repoData.push({stars: repoStats.data.repositorystargazers.totalCoun}});
+    repoData.push({stars: repoStats.data.repositorystargazers.totalCount}});
   }
   return repoData;
 }
