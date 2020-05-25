@@ -80,12 +80,13 @@ function getOpenIssues() {
   return getIssues(body("OPEN"));
 }
 
-async function getRepoData(issues) {
+function getRepoData(issues) {
   issues.forEach((data) => {
     const repoOwner = data.data.repository.owner.login;
     const repoName = data.data.repository.name;
-    const repoStats = await geIssues(body("OPEN"));
-    repoData.push({stars: repoStats.data.repositorystargazers.totalCount}});
+    geIssues(body("OPEN")).then((r) => {
+      repoData.push({stars: r.data.repositorystargazers.totalCount}});
+    })
   }
   return repoData;
 }
