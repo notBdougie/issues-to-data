@@ -27,17 +27,21 @@ const repoName = repoInfo[1];
 const body = state =>
   JSON.stringify({
     query: `
-        query {
-            repository(owner:"${repoOwner}", name:"${repoName}") {
-                issues(states:${state}) {
-                  totalCount
-                }
+      query {
+        repository(owner:"${repoOwner}", name:"${repoName}") {
+          issues(states:${state}) {
+            totalCount
+            edges {
+              node {
+                title
               }
-        }`
+            }
+          }
+        }
+      }`
   });
 
 function getIssues(body) {
-  console.log("BODY", body)
   const url = "https://api.github.com/graphql";
   const options = {
     method: "POST",
