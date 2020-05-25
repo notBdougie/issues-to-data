@@ -58,13 +58,17 @@ function getIssues(body) {
     .then(data => {
       console.log("DATA", data)
 
-      return data.data.repository.issues.totalCount;
+      return data.data.repository.issues.edges;
     }).catch((err) => {console.log(err)});
 }
 
 function getOpenIssues() {
   return getIssues(body("OPEN"));
 }
+
+// function getRepoData() {
+//   /
+// }
 
 function storeData(record) {
   issueData.push(record);
@@ -84,7 +88,6 @@ async function run() {
   storeData({
     timestamp: now,
     openIssues: openIssues,
-    closedIssues: closedIssues
   });
 
   dumpData();
